@@ -1,4 +1,5 @@
 package com.stockmanagement.stock;
+import java.util.*;
 
 public class StockMarket {
 	private Stock[] stocks;
@@ -61,4 +62,32 @@ public class StockMarket {
         }
     }
     
+    public Stock findStockWithMinPricePerShare() {
+        if (numStocks == 0) {
+            return null; // No stocks available
+        }
+
+        Stock minPriceStock = stocks[0];
+        for (int i = 1; i < numStocks; i++) {
+            if (stocks[i].getPricePerShare() < minPriceStock.getPricePerShare()) {
+                minPriceStock = stocks[i];
+            }
+        }
+        return minPriceStock;
+    }
+    
+ // Sort Stocks by Price Per Share
+    public void sortStocksByPricePerShare() {
+        Arrays.sort(stocks, 0, numStocks, Comparator.comparingDouble(Stock::getPricePerShare));
+        System.out.println("Stocks sorted by price per share.");
+    }
+    
+    public Stock getStockByCompanyName(String company) {
+        for (int i = 0; i < numStocks; i++) {
+            if (stocks[i].getCompanyName().equalsIgnoreCase(company)) {
+                return stocks[i];
+            }
+        }
+        return null; // Stock not found
+    }
 }
